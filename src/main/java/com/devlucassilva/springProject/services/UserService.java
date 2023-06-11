@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.devlucassilva.springProject.entities.User;
 import com.devlucassilva.springProject.repositories.UserRepository;
 
-@Service //registrado como componente de independencia
+@Service //registrado como componente de dependencia do spring
 public class UserService {
 
 	@Autowired
