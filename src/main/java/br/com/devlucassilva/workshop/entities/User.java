@@ -1,5 +1,6 @@
 package br.com.devlucassilva.workshop.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -23,6 +24,7 @@ public class User implements Serializable {
     private String phone;
     private String password;
 
+    @JsonIgnore //evita o looping de relacao de tabelas
     @OneToMany(mappedBy = "client") //nome do atributo User na classe Order
     private List<Order> orders = new ArrayList<>();
 
