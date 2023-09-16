@@ -10,7 +10,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
-@Embeddable
+@Embeddable //significa que esta classe pode compor outra classe no JPA
 public class OrderItemPK implements Serializable {
 
     @Serial

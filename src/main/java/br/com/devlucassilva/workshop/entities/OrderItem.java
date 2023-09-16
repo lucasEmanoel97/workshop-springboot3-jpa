@@ -17,18 +17,18 @@ public class OrderItem implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @EmbeddedId
+    @EmbeddedId // significa que esta classe esta composta por OrderItemPK
     private OrderItemPK id = new OrderItemPK();
     private Integer quantity;
-    private Double parse;
+    private Double price;
 
     public OrderItem() {}
 
-    public OrderItem(Order order, Product product, Integer quantity, Double parse) {
+    public OrderItem(Order order, Product product, Integer quantity, Double price) {
         id.setOrder(order);
         id.setProduct(product);
         this.quantity = quantity;
-        this.parse = parse;
+        this.price = price;
     }
 
     @JsonIgnore
@@ -44,9 +44,13 @@ public class OrderItem implements Serializable {
 
     public void setQuantity(Integer quantity) {this.quantity = quantity; }
 
-    public Double getParse() {return parse; }
+    public Double getParse() {return price; }
 
-    public void setParse(Double parse) {this.parse = parse; }
+    public void setParse(Double price) {this.price = price; }
+
+    public Double getSubTotal() {
+        return price * quantity;
+    }
 
     @Override
     public boolean equals(Object o) {
