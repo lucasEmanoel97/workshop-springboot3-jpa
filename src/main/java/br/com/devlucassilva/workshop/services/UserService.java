@@ -2,8 +2,11 @@ package br.com.devlucassilva.workshop.services;
 
 import br.com.devlucassilva.workshop.entities.User;
 import br.com.devlucassilva.workshop.repositories.UserRepository;
+import br.com.devlucassilva.workshop.services.exceptions.DatabaseException;
 import br.com.devlucassilva.workshop.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,7 +32,13 @@ public class UserService {
     }
 
     public void delete(Long id) {
-        userRepository.deleteById(id);
+        try {
+            userRepository.deleteById(id);
+        }catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException(id);
+        }catch(DataIntegrityViolationException er) {
+            throw new DatabaseException(er.getMessage());
+        }
     }
 
     public User update(Long id, User obj) {
